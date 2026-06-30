@@ -1,0 +1,42 @@
+ TASK 3 Task Automation With Phython Tracker
+
+import os
+import shutil
+
+def organize_jpg_files():
+    print("--- JPG File Automation Script ---")
+    
+    # Target directory to search (current working directory)
+    source_dir = os.getcwd()
+    # Name of the destination folder
+    destination_folder = "Organized_Images"
+    destination_dir = os.path.join(source_dir, destination_folder)
+    
+    # Create the destination folder if it doesn't already exist
+    if not os.path.exists(destination_dir):
+        os.makedirs(destination_dir)
+        print(f"Created folder: {destination_folder}")
+        
+    # Counter for moved files
+    moved_count = 0
+    
+    # Scan through files in the current folder
+    for file_name in os.listdir(source_dir):
+        # Check if the file ends with .jpg (case insensitive)
+        if file_name.lower().endswith('.jpg'):
+            source_file_path = os.path.join(source_dir, file_name)
+            destination_file_path = os.path.join(destination_dir, file_name)
+            
+            # Move the file
+            try:
+                shutil.move(source_file_path, destination_file_path)
+                print(f"Moved: {file_name} -> {destination_folder}/")
+                moved_count += 1
+            except Exception as e:
+                print(f"Error moving {file_name}: {e}")
+                
+    print("-" * 34)
+    print(f"Automation Complete! Total .jpg files moved: {moved_count}")
+
+if __name__ == "__main__":
+    organize_jpg_files()
